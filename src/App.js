@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Notes from './pages/Notes';
+import Create from './pages/Create';
+import Layout from './components/Layout';
+import { createTheme, ThemeProvider } from '@material-ui/core';
+import { deepPurple } from '@material-ui/core/colors'
 
-function App() {
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#fefefe'
+    },
+    secondary: deepPurple
+  },
+  typography: {
+    fontFamily: 'Quicksand',
+    fontWeightLight: 400,
+    fontWeightRegular: 500,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
+  }
+});
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Notes/>} />
+            <Route path="create" element={<Create/>} />
+          </Routes>
+        </Layout>
+      </Router>
+    </ThemeProvider>
+  )
 }
 
 export default App;
